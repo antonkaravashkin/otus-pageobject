@@ -24,20 +24,12 @@ def pytest_addoption(parser):
         help="default is opencart demo_page"
     )
 
-    # parser.addoption(
-    #     "--log-level",
-    #     default=None,
-    #     dest='log_level',
-    #     action="store",
-    # )
-
 
 @pytest.fixture
 def driver(request):
     """Считается, что драйвер добавлен в переменные сред ОС win, либо назначен исполняемым под unix\linux системы"""
     browser = request.config.getoption("--browser")
     target_link = request.config.getoption("--url")
-    # log_level = request.config.getoption("--log-level")
 
     logger = logging.getLogger(request.node.name)
     file = logging.FileHandler(f"logs/{request.node.name}.log")
