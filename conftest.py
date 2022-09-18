@@ -1,4 +1,5 @@
 import pytest
+import logging
 
 from selenium import webdriver
 from src.common_methods import CommonMethods
