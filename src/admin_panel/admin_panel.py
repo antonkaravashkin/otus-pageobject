@@ -76,16 +76,14 @@ class AdminPanel(CommonMethods):
     def check_product_for_delete(self):
         """Условлюсь, что у меня конкретное наименование создаваемого товара"""
         elements = self.find_elements(*self.desirable_checkbox)
+        self.logger.info(f"Отмечаем чек-боксы")
         if len(elements) >= 1:
             for element in elements:
                 element.click()
                 elements.pop(0)
     
     def input_filter_model(self, text: str):
-        element = self.find_element(*self.filter_model)
-        element.click()
-        element.clear()
-        element.send_keys(text)
+        self.enter_credentials(*self.filter_model, text)
 
     
     def assert_created_product_exist(self):

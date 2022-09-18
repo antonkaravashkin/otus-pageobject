@@ -46,9 +46,11 @@ class RegistrationPage(CommonMethods):
 
     def click_privacy_checkbox(self):
         self.find_element(*self.privecy_policy).click()
+        self.logger.info(f"Отмечаем чек-бокс")
 
     def submit_form(self):
         self.find_element(*self.submit_button).submit()
+        self.logger.info(f"Нажимаем кнопку Submit")
 
     def assert_personal_details(self):
         assert self.assert_element_visible(*self.personal_details)

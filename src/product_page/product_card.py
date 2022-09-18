@@ -28,16 +28,10 @@ class ProductCard(CommonMethods):
         self.find_element(*self.continue_button).click()
 
     def fill_review_name(self, text):
-        element = self.find_element(*self.review_input_name)
-        element.click()
-        element.clear()
-        element.send_keys(text)
+        self.enter_credentials(*self.review_input_name, text)
 
     def fill_review(self, text):
-        element = self.find_element(*self.review_review_field)
-        element.click()
-        element.clear()
-        element.send_keys(text)
+        self.enter_credentials(*self.review_review_field, text)
 
     def click_five_star_rating(self):
         self.find_element(*self.five_star_rating).click()

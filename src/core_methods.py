@@ -19,7 +19,6 @@ class CoreMethods:
         self.logger.setLevel(self.driver.log_level)
 
     def get_element(self, by: By, value: str, timeout: int = 5):
-        self.logger.info(f"Получаем элемент {value}, запоминаем")
         return self.find_element(by, value, timeout)
 
     def find_element_by_text(self, text):
@@ -28,7 +27,7 @@ class CoreMethods:
 
     def find_element(self, by: By, value: str, timeout: int = 5):
         """Ключевой метод с ожиданием"""
-        self.logger.info(f"Находим элемент {value}")
+        self.logger.info(f"Найден элемент {value}")
         return WebDriverWait(self.driver, timeout).until(
             ec.visibility_of_element_located((by, value))
         )
@@ -41,19 +40,19 @@ class CoreMethods:
 
     def select_drop_option(self, text):
         element = self.find_element_by_text(text=text)
-        self.logger.info(f"Кликаем в элемент {element}")
+        self.logger.info(f"Кликаем в элемент {text}")
         element.click()
 
     def scroll_element_into_center(self, element: WebElement):
-        self.logger.info(f"Скроллим страницу до {element}")
+        self.logger.info(f"Скроллим страницу до <{element.text}>")
         self.driver.execute_script(
             'arguments[0].scrollIntoView({block: "center"});', element
         )
         time.sleep(1)
 
     def enter_credentials(self, by: By, value: str, option: str):
-        self.logger.info(f"Вводим {option} в поле {value}")
         element = self.get_element(by, value)
+        self.logger.info(f"Вводим {option} в поле {value}")
         element.click()
         element.clear()
         element.send_keys(option)
@@ -67,8 +66,8 @@ class CoreMethods:
         self.driver.switch_to.alert.accept()
 
     def assert_element_visible(self, by: By, value: str, timeout: int = 5):
-        self.logger.info(f"Пытаемся найти элемент {value}")
         try:
+            self.logger.info(f"Пытаемся найти элемент {value}")
             self.find_element(by, value, timeout)
             return True
         except TimeoutException:
@@ -77,10 +76,10 @@ class CoreMethods:
 
     def assert_text_equal(self, by: By, value: str, text: str):
         text_element = self.find_element(by, value).text.strip()
-        self.logger.info(f"Сравниваем {text_element} с text")
-        assert text_element == text, f"Ожидался {text_element}"
+        self.logger.info(f"Сравниваем {text_element} с {text}")
+        assert text_element == text, self.logger.warning(f"Ожидался {text}, получен {text_element}")
 
     def assert_current_url(self, url: str):
         current_url = self.driver.current_url
         self.logger.info(f"Проверяем открытый {current_url}")
-        assert current_url == url, f"Ожидался {url}, открылся {current_url}"
+        assert current_url == url, self.logger.warning(f"Ожидался {url}, открылся {current_url}")

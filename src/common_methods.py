@@ -10,22 +10,27 @@ class CommonMethods(CoreMethods):
         self.open_cart_logo = (By.CSS_SELECTOR, "img[title='Your Store']")
         self.title = (By.XPATH, "//div[@id='content']/h2")
         self.navigation_bar = (By.CSS_SELECTOR, ".navbar-header")
-        self.desktop = (By.XPATH, "//li[@class='dropdown']/a[text()='Desktops']")
+        self.desktop = (
+            By.XPATH, "//li[@class='dropdown']/a[text()='Desktops']")
         self.laptops = (
             By.XPATH,
             "//li[@class='dropdown']/a[text()='Laptops & Notebooks']",
         )
-        self.components = (By.XPATH, "//li[@class='dropdown']/a[text()='Components']")
+        self.components = (
+            By.XPATH, "//li[@class='dropdown']/a[text()='Components']")
         self.tablets = (By.XPATH, "//a[text()='Tablets']")
         self.software = (By.XPATH, "//a[text()='Software']")
         self.phones = (By.XPATH, "//a[text()='Phones & PDAs']")
         self.cameras = (By.XPATH, "//a[text()='Cameras']")
         self.players = (By.XPATH, "//a[text()='MP3 Players']")
-        self.search_field = (By.XPATH, "//input[@class='form-control input-lg']")
-        self.search_button = (By.XPATH, "//button[@class='btn btn-default btn-lg']")
+        self.search_field = (
+            By.XPATH, "//input[@class='form-control input-lg']")
+        self.search_button = (
+            By.XPATH, "//button[@class='btn btn-default btn-lg']")
         self.search_title = (By.XPATH, "//div[@id='content']/h1")
         self.swiper = (By.XPATH, "//div[@id='slideshow0']")
-        self.inactive_bullet = (By.XPATH, "//span[@class='swiper-pagination-bullet']")
+        self.inactive_bullet = (
+            By.XPATH, "//span[@class='swiper-pagination-bullet']")
         self.active_bullet = (
             By.XPATH,
             "//span[@class='swiper-pagination-bullet swiper-pagination-bullet-active']",
@@ -34,7 +39,8 @@ class CommonMethods(CoreMethods):
         self.phone_number = (By.XPATH, "//ul[@class='list-inline']/li[1]/span")
         self.featured = (By.XPATH, "//div[@id='content']//h3")
         self.cinema = (By.XPATH, '//a[contains(text(),"Apple Cinema 30")]')
-        self.my_account = (By.XPATH, "//div[@id='top-links']//li[@class='dropdown']")
+        self.my_account = (
+            By.XPATH, "//div[@id='top-links']//li[@class='dropdown']")
         self.wish_list = (By.XPATH, "//a[@id='wishlist-total']")
         self.shopping_cart = (By.XPATH, "//a[@title='Shopping Cart']")
         self.checkout = (By.XPATH, "//a[@title='Checkout']")
@@ -80,9 +86,7 @@ class CommonMethods(CoreMethods):
         self.find_element(*self.checkout).click()
 
     def input_search(self, option):
-        element = self.find_element(*self.search_field).click()
-        element.clear()
-        element.send_keys(option)
+        self.enter_credentials(*self.search_field, option)
 
     def search_button_click(self):
         self.find_element(*self.search_button).click()
