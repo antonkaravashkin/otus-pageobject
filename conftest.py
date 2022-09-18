@@ -39,7 +39,7 @@ def driver(request):
     logger.setLevel("DEBUG")
 
     logger.info(
-        f"Начинаем тест '{request.node.name}' в {datetime.datetime.now()}")
+        f"Начинаем тест: '{request.node.name}' в браузере: {browser}, в {datetime.datetime.now()}")
 
     if browser == "chrome":
         options = webdriver.ChromeOptions()
@@ -50,10 +50,11 @@ def driver(request):
     elif browser == "safari":
         driver = webdriver.Safari()
     else:
+        logger.info(f"Не удалось создать драйвер!")
         raise Exception(
             "Unknown browser, please check --browser help for supported options"
         )
-    driver.log_level = "DEBUG"
+    driver.log_level = logging.DEBUG
     driver.logger = logger
     driver.test_name = request.node.name
     driver.maximize_window()
@@ -62,7 +63,7 @@ def driver(request):
     yield driver
     driver.quit()
     logger.info(
-        f"Тест '{request.node.name}' закончен в {datetime.datetime.now()}")
+        f"Тест: '{request.node.name}' в браузере: {browser} закончен в {datetime.datetime.now()}")
 
 
 @pytest.fixture
