@@ -1,7 +1,9 @@
 from src.catalog.catalog_page import CatalogPage
+import allure
 
 
 class TestCatalogPage:
+    @allure.title('Check catalog page elements')
     def test_visibility_of_elements(self, tablets_catalog, driver):
         catalog = CatalogPage(driver)
         catalog.assert_compare_total_presence()

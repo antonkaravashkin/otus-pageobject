@@ -1,7 +1,9 @@
 from src.common_methods import CommonMethods
+import allure
 
 
 class TestCurencySwitch:
+    @allure.title('Currency switch check')
     def test_switch_currency(self, driver):
         base = CommonMethods(driver)
         base.click_currency_dropdown()

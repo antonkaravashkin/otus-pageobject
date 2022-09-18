@@ -1,3 +1,4 @@
+import allure
 from src.common_methods import CommonMethods
 from selenium.webdriver.common.by import By
 
@@ -8,5 +9,6 @@ class AboutUs(CommonMethods):
 
         self.about_title = (By.XPATH, "//h1[text()='About Us']")
 
+    @allure.step
     def assert_about_title(self, option: str):
         self.assert_text_equal(*self.about_title, text=option)

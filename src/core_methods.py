@@ -1,5 +1,6 @@
 import time
 import logging
+import allure
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.remote.webelement import WebElement
@@ -27,10 +28,15 @@ class CoreMethods:
 
     def find_element(self, by: By, value: str, timeout: int = 5):
         """Ключевой метод с ожиданием"""
-        self.logger.info(f"Найден элемент {value}")
-        return WebDriverWait(self.driver, timeout).until(
-            ec.visibility_of_element_located((by, value))
-        )
+        try:
+            self.logger.info(f"Найден элемент {value}")
+            return WebDriverWait(self.driver, timeout).until(
+                ec.visibility_of_element_located((by, value))
+            )
+        except:
+            self.logger.warning(f"Не нашелся элемент {value}")
+            allure.attach(body=self.driver.get_screenshot_as_png(),
+                          name="screenshot_image", attachment_type=allure.attachment_type.PNG)
 
     def find_elements(self, by: By, value: str, timeout: int = 5):
         self.logger.info(f"Находим список элементов {value}")
@@ -72,14 +78,23 @@ class CoreMethods:
             return True
         except TimeoutException:
             self.logger.info(f"Не смогли найти элемент {value}")
+            allure.attach(body=self.driver.get_screenshot_as_png(),
+                          name="screenshot_image", attachment_type=allure.attachment_type.PNG
+                          )
             return False
 
     def assert_text_equal(self, by: By, value: str, text: str):
         text_element = self.find_element(by, value).text.strip()
-        self.logger.info(f"Сравниваем {text_element} с {text}")
-        assert text_element == text, self.logger.warning(f"Ожидался {text}, получен {text_element}")
+        try:
+            self.logger.info(f"Сравниваем {text_element} с {text}")
+            assert text_element == text
+        except:
+            self.logger.warning(f"Ожидался {text}, получен {text_element}")
+            allure.attach(body=self.driver.get_screenshot_as_png(),
+                          name="screenshot_image", attachment_type=allure.attachment_type.PNG)
 
     def assert_current_url(self, url: str):
         current_url = self.driver.current_url
         self.logger.info(f"Проверяем открытый {current_url}")
-        assert current_url == url, self.logger.warning(f"Ожидался {url}, открылся {current_url}")
+        assert current_url == url, self.logger.warning(
+            f"Ожидался {url}, открылся {current_url}")

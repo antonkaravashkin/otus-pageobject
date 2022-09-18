@@ -1,3 +1,4 @@
+import allure
 from selenium.webdriver.common.by import By
 from src.core_methods import CoreMethods
 
@@ -67,36 +68,47 @@ class CommonMethods(CoreMethods):
             "//h5[text()='Information']/..//a[text()='Terms & Conditions']",
         )
 
+    @allure.step
     def click_currency_dropdown(self):
         self.find_element(*self.currency_tab).click()
 
+    @allure.step
     def click_phone_button(self):
         self.find_element(*self.phone_icon).click()
 
+    @allure.step
     def click_my_account_button(self):
         self.find_element(*self.my_account).click()
 
+    @allure.step
     def click_navbar_wishlist_button(self):
         self.find_element(*self.wish_list).click()
 
+    @allure.step
     def click_shoppingcart_button(self):
         self.find_element(*self.shopping_cart).click()
 
+    @allure.step
     def click_checkout_button(self):
         self.find_element(*self.checkout).click()
 
+    @allure.step
     def input_search(self, option):
         self.enter_credentials(*self.search_field, option)
 
+    @allure.step
     def search_button_click(self):
         self.find_element(*self.search_button).click()
 
+    @allure.step
     def open_catalog_with_single_section(self, text):
         self.find_element_by_text(text=text).click()
 
+    @allure.step
     def assert_currency_mark(self, option):
         self.assert_text_equal(*self.currency_tab, option)
 
+    @allure.step
     def assert_footer_information_option(self):
         elements = (
             self.footer_aboutus,
@@ -111,5 +123,7 @@ class CommonMethods(CoreMethods):
                 *element
             ), f"Не нашелся элемент {element[1]}"
 
+
+    @allure.step
     def click_footer_option(self, option: str):
         self.find_element_by_text(text=option).click()

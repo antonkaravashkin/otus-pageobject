@@ -1,8 +1,10 @@
 from src.product_page.product_card import ProductCard
 from data.product_card import NAME, REVIEW
+import allure
 
 
 class TestProductCard:
+    @allure.title('Проверить отправку ревью товара')
     def test_fill_review(self, open_product_card, driver):
         product = ProductCard(driver)
         product.scroll_to_cart()

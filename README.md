@@ -2,7 +2,7 @@
 
 Перенес проект в отдельный репозиторий, дабы было удобнее ревьюить задачки.
 
-# --------- <h1>allure-section</h1> ---------
+# --------- allure-section ---------
 
 # Отчет генерируется сам, параметр командной строки прописан в pytest.ini.
 addopts = --alluredir allure-results -q
@@ -11,5 +11,6 @@ addopts = --alluredir allure-results -q
 ~/repositories/allure_report/allure/bin/allure generate ~/repositories/otus-pageobject/allure-results/ --clean
 
 # Заметки для себя.
-На vscode перейти в папку "~/{PROJECTROOT}/allure-results/"
+На vscode перейти в папку "~/{PROJECTROOT}/allure-report/"
 В терминале набрать "python3 -m http.server"
+На крайняк, если не сработает первый вариант: "~/repositories/allure_report/allure/bin/allure serve allure-results"

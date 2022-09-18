@@ -1,3 +1,4 @@
+import allure
 from src.user_registration.registration_page import (
     RegistrationPage,
 )
@@ -12,6 +13,7 @@ from data.user_registration import (
 
 
 class TestCreateNewUser:
+    @allure.title('Проверяем создание пользователя')
     def test_create_new_user(self, my_account_registration, driver):
         user = RegistrationPage(driver)
         user.input_first_name(FIRST_NAME)
