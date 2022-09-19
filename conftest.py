@@ -24,12 +24,21 @@ def pytest_addoption(parser):
         help="default is opencart demo_page"
     )
 
+    parser.addoption(
+        "--executor",
+        action="store",
+        default="192.168.88.81"
+    )
+    parser.addoption("--bv")
+
 
 @pytest.fixture
 def driver(request):
     """Считается, что драйвер добавлен в переменные сред ОС win, либо назначен исполняемым под unix\linux системы"""
     browser = request.config.getoption("--browser")
     target_link = request.config.getoption("--url")
+    executor = request.config.getoption("--executor")
+    version = request.config.getoption("--bv")
 
     logger = logging.getLogger(request.node.name)
     file = logging.FileHandler(f"logs/{request.node.name}.log")
@@ -41,18 +50,40 @@ def driver(request):
     logger.info(
         f"Начинаем тест: '{request.node.name}' в браузере: {browser}, в {datetime.datetime.now()}")
 
-    if browser == "chrome":
-        options = webdriver.ChromeOptions()
-        options.add_argument("--ignore-certificate-errors")
-        driver = webdriver.Chrome(options=options)
-    elif browser == "firefox":
-        driver = webdriver.Firefox()
-    elif browser == "safari":
-        driver = webdriver.Safari()
+    if executor == "local":
+        if browser == "chrome":
+            options = webdriver.ChromeOptions()
+            options.add_argument("--ignore-certificate-errors")
+            driver = webdriver.Chrome(options=options)
+        elif browser == "firefox":
+            driver = webdriver.Firefox()
+        elif browser == "safari":
+            driver = webdriver.Safari()
+        else:
+            logger.info(f"Не удалось создать драйвер!")
+            raise Exception(
+                "Unknown browser, please check --browser help for supported options"
+            )
     else:
-        logger.info(f"Не удалось создать драйвер!")
-        raise Exception(
-            "Unknown browser, please check --browser help for supported options"
+        executor_url = f"http://{executor}:4444/wd/hub"
+
+        capabilities = {
+            "browserName": browser,
+            "browserVersion": version,
+            "name": "AntonK.",
+            "selenoid:options": {
+                "enableVNC": False,
+                "enableVideo": False,
+                "enableLog": True
+            },
+            "acceptSslCerts": True,
+            "acceptInsecureCerts": True,
+            "timeZone": "Europe/Moscow"
+        }
+
+        driver = webdriver.Remote(
+            command_executor=executor_url,
+            desired_capabilities=capabilities
         )
     driver.log_level = logging.DEBUG
     driver.logger = logger

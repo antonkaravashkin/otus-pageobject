@@ -1,4 +1,5 @@
 import allure
+import pytest
 from src.admin_panel.admin_panel import AdminPanel
 from data.admin_panel import (
     PRODUCT_NAME,
@@ -7,7 +8,7 @@ from data.admin_panel import (
     NO_RESULTS,
 )
 
-
+@pytest.mark.xfail
 class TestProducts:
     @allure.title('Проверить создание новог товара')
     def test_create_new_product(self, admin_panel_login, driver):
