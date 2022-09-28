@@ -1,3 +1,5 @@
+import allure
+import pytest
 from src.admin_panel.admin_panel import AdminPanel
 from data.admin_panel import (
     PRODUCT_NAME,
@@ -6,8 +8,9 @@ from data.admin_panel import (
     NO_RESULTS,
 )
 
-
+@pytest.mark.xfail
 class TestProducts:
+    @allure.title('Проверить создание новог товара')
     def test_create_new_product(self, admin_panel_login, driver):
         admin = AdminPanel(driver)
         admin.click_catalog()
@@ -21,6 +24,7 @@ class TestProducts:
         admin.click_save_button()
         admin.assert_created_product_exist()
 
+    @allure.title('Проверить удаление ранее созданного товара')
     def test_delete_products(self, admin_panel_login, driver):
         admin = AdminPanel(driver)
         admin.click_catalog()

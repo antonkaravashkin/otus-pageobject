@@ -1,3 +1,4 @@
+import allure
 from selenium.webdriver.common.by import By
 
 from src.common_methods import CommonMethods
@@ -25,45 +26,60 @@ class RegistrationPage(CommonMethods):
 
         self.checkbox = (By.XPATH, "//input[@name='agree']")
 
-
+    @allure.step
     def input_first_name(self, options):
         self.enter_credentials(*self.first_name, options)
 
+    @allure.step
     def input_last_name(self, options):
         self.enter_credentials(*self.last_name, options)
-    
+
+    @allure.step
     def input_email(self, options):
         self.enter_credentials(*self.e_mail, options)
-    
+
+    @allure.step
     def input_telephone(self, options):
         self.enter_credentials(*self.telephone_field, options)
 
+    @allure.step
     def input_password(self, options):
         self.enter_credentials(*self.password_field, options)
-    
+
+    @allure.step
     def input_password_confirmation(self, options):
         self.enter_credentials(*self.confirm_password, options)
 
+    @allure.step
     def click_privacy_checkbox(self):
         self.find_element(*self.privecy_policy).click()
+        self.logger.info(f"Отмечаем чек-бокс")
 
+    @allure.step
     def submit_form(self):
         self.find_element(*self.submit_button).submit()
+        self.logger.info(f"Нажимаем кнопку Submit")
 
+    @allure.step
     def assert_personal_details(self):
         assert self.assert_element_visible(*self.personal_details)
 
+    @allure.step
     def assert_telephone_field(self):
         assert self.assert_element_visible(*self.telephone)
 
+    @allure.step
     def assert_password_title(self):
         assert self.assert_element_visible(*self.password_title)
 
+    @allure.step
     def assert_newsletter(self):
         assert self.assert_element_visible(*self.newsletter)
 
+    @allure.step
     def assert_subscribe_block(self):
         assert self.assert_element_visible(*self.subscribe)
 
+    @allure.step
     def assert_account_creation_text(self, option):
         assert self.assert_text_equal(*self.account_creation_text, option)
