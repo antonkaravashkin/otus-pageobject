@@ -5,7 +5,7 @@ pipeline {
         steps {
     	catchError {
       	   script {
-        	      docker.build("otus-pageobject", "-rm", "-t otus-pageobject", "-f Dockerfile .")
+        	      docker.build("otus-pageobject", "-f Dockerfile .")
       	     }
           }
        }
