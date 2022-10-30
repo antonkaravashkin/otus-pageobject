@@ -26,7 +26,7 @@ pipeline {
           	     docker.image('aerokube/selenoid:1.10.8').withRun('-p 4444:4444 -v /run/docker.sock:/var/run/docker.sock -v $PWD:/etc/selenoid/',
             	'-timeout 600s -limit 2') { c ->
               	docker.image('otus-pageobject').inside("--link ${c.id}:executor") {
-                    	sh "pytest --executor ${executor} --url ${opencart_url} --browser ${browser} --bv ${browser_version} -n ${parallels} --reruns 1 ${CMD_PARAMS}"
+                    	sh "pytest --executor ${executor} --url ${opencart_url} --browser ${browser} --bv ${browser_version} -n ${parallels}"
                 	    }
                    }
         	     }
