@@ -3,7 +3,7 @@ import allure
 
 
 class TestCurencySwitch:
-    @allure.title('Currency switch check')
+    @allure.title('Проверить смену валюты')
     def test_switch_currency(self, driver):
         base = CommonMethods(driver)
         base.click_currency_dropdown()
