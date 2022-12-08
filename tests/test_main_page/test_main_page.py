@@ -1,7 +1,8 @@
 from src.main_page.main_page import MainPage
 import allure
+import pytest
 
-
+@pytest.mark.smoke
 class TestMainPage:
     @allure.title('Проверить интерактивность Featured блока')
     def test_featured_product(self, driver):

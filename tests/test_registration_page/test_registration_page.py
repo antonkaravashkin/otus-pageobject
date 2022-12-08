@@ -1,8 +1,10 @@
 from src.user_registration.registration_page import RegistrationPage
 import allure
+import pytest
 
 
 class TestRegistrationPage:
+    @pytest.mark.smoke
     @allure.title('Проверяем наличие элементов страницы регистрации')
     def test_check_elements(self, my_account_registration, driver):
         registration = RegistrationPage(driver)

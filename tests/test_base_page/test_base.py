@@ -1,10 +1,12 @@
 import allure
+import pytest
 from src.common_methods import CommonMethods
 from src.about_us.about_us import AboutUs
 from data.footer_data import ABOUTUS
 from data.variables import TEST_URL
 
 
+@pytest.mark.smoke
 class TestOverall:
     @allure.title('Переход на страницу "О нас" через футер')
     def test_footer_aboutus_redirect(self, driver):

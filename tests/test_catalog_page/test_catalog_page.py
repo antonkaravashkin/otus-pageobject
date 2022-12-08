@@ -1,8 +1,10 @@
 from src.catalog.catalog_page import CatalogPage
 import allure
+import pytest
 
 
 class TestCatalogPage:
+    @pytest.mark.smoke
     @allure.title('Проверить элементы страницы каталог')
     def test_visibility_of_elements(self, tablets_catalog, driver):
         catalog = CatalogPage(driver)

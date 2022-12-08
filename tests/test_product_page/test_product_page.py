@@ -1,9 +1,10 @@
 from src.product_page.product_card import ProductCard
 from data.product_card import NAME, REVIEW
 import allure
-
+import pytest
 
 class TestProductCard:
+    @pytest.mark.smoke
     @allure.title('Проверить отправку ревью товара')
     def test_fill_review(self, open_product_card, driver):
         product = ProductCard(driver)
