@@ -8,6 +8,7 @@ from data.admin_panel import (
     NO_RESULTS,
 )
 
+@pytest.mark.admin_panel
 @pytest.mark.xfail
 class TestProducts:
     @allure.title('Проверить создание нового товара')
