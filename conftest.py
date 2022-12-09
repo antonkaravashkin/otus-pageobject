@@ -21,7 +21,7 @@ def pytest_addoption(parser):
     parser.addoption(
         "--url",
         default="http://192.168.88.81:8081",
-        help="default is opencart demo_page"
+        help="default is opencart demo_page. put '/admin' in url if u need to run admin tests."
     )
 
     parser.addoption(

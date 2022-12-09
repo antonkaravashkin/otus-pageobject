@@ -1,6 +1,19 @@
 pipeline {
   agent any
+      options {
+        // This is required if you want to clean before build
+        skipDefaultCheckout(true)
+    }
   stages {
+      stage('Build') {
+            steps {
+                // Clean before build
+                cleanWs()
+                // We need to explicitly checkout from SCM here
+                checkout scm
+                echo "Building ${env.JOB_NAME}..."
+            }
+        }
      stage("Build image") {
         steps {
     	catchError {
@@ -26,7 +39,7 @@ pipeline {
           	     docker.image('aerokube/selenoid:1.10.8').withRun('-p 4445:4444 -v /run/docker.sock:/var/run/docker.sock -v $PWD:/etc/selenoid/',
             	'-timeout 600s -limit 2') { c ->
               	docker.image('otus-pageobject').inside("--network selenoid --entrypoint=''") {
-                    	sh "pytest --executor ${executor} --url http://${opencart_url} --browser ${browser} --bv ${browser_version} -n ${parallels}"
+                    	sh "pytest -n ${parallels} -m ${mark} --executor ${executor} --url http://${opencart_url} --browser ${browser} --bv ${browser_version}"
                 	    }
                    }
         	     }

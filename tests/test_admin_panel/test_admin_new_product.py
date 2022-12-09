@@ -8,9 +8,10 @@ from data.admin_panel import (
     NO_RESULTS,
 )
 
+@pytest.mark.admin_panel
 @pytest.mark.xfail
 class TestProducts:
-    @allure.title('Проверить создание новог товара')
+    @allure.title('Проверить создание нового товара')
     def test_create_new_product(self, admin_panel_login, driver):
         admin = AdminPanel(driver)
         admin.click_catalog()

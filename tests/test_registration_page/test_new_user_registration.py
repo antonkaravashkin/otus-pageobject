@@ -14,7 +14,7 @@ from data.user_registration import (
 
 
 class TestCreateNewUser:
-    @pytest.mark.xfail
+    @pytest.mark.smoke
     @allure.title('Проверяем создание пользователя')
     def test_create_new_user(self, my_account_registration, driver):
         user = RegistrationPage(driver)

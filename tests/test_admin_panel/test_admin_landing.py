@@ -3,6 +3,7 @@ from data.admin_panel import FOOTER_TEXT
 import allure
 import pytest
 
+@pytest.mark.admin_panel
 @pytest.mark.xfail
 class TestAdminPanelLanding:
     @allure.title('Проверяем страницу Админ Панели')
